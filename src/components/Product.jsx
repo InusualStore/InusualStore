@@ -1,21 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import '../assets/style/components/Tendencias.scss';
-import prenda from '../assets/images/ropa.jpg';
+import { connect } from 'react-redux';
+import { addCarShop } from '../actions'
 
-const Product = ({ photo }) => (
-  <div className="products">
-    <div className="product__image">
-      <div className="product__image--details">
-        <img className="photo" src={photo} alt="" />
-        <button className="subscribe btntendencias">Comprar</button>
+const Product = ( props ) => {
+  const { id, title, photo, description, precio } = props;
+
+  const handleSetCarShop = () => {
+    props.addCarShop({
+      id, title, photo, description, precio
+    });
+  };
+  return(
+    <div className="products">
+      <div className="product__image">
+        <div className="product__image--details">
+          <img className="photo" src={photo} alt="" />
+          <button className="subscribe btntendencias" onClick={handleSetCarShop}>Comprar</button>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
-Product.PropTypes = {
-  photo: PropTypes.string,
-}
+const mapDispachToProps = {
+  addCarShop,
+};
 
-export default Product;
+export default connect(null, mapDispachToProps)(Product);

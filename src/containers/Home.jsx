@@ -7,37 +7,41 @@ import Product from '../components/Product';
 
 import '../assets/style/App.scss';
 
-const Home = ({ mylist, trends }) => {
+const Home = ({ favoritas, nuevos, prendas }) => {
   return (
     <>
       <Container />
-        <Tendencias title="Tendencias"/>
-        <Products>
-          { mylist.map((item)=>{
+        {nuevos.length > 0 && (
+          <>
+            <Tendencias title="Tendencias"/>
+            <Products>
+              { nuevos.map((item)=>(
+                <Product key={item.id} {...item} />
+              ))}
+            </Products>
+          </>
+        )}
+          <Tendencias title="Tendencias"/>
+          <Products>
+            { favoritas.map((item) => (
             <Product key={item.id} {...item} />
-          })}
-        </Products>
-        <Tendencias title="Tendencias"/>
-        <Products>
-        { trends.map((item)=>{
-          <Product key={item.id} {...item} />
-          })}
-        </Products>
-        <Tendencias title="Productos nuevos"/>
-        <Products>
-        { trends.map((item)=>{
-          <Product key={item.id} {...item} />
-        })}
-        </Products>
+            ))}
+          </Products>
+          <Tendencias title="Productos nuevos"/>
+          <Products>
+          { prendas.map((item)=>(
+            <Product key={item.id} {...item} />
+          ))}
+          </Products>
     </>
   );
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
-    mylist: state.mylist,
-    trends: state.trends,
+    prendas: state.prendas,
+    nuevos: state.prendasNuevas,
+    favoritas: state.prendasFavoritas,
   }
 }
 
